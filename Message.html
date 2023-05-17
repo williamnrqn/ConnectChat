@@ -4,16 +4,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="DALL_E_2023-05-11_11.42.29_-_je_veux_que_tu_remplace_le_text_par__ConnectChat_-removebg-preview.png">
-    <link rel="stylesheet" href="Message.css">
-    <script src="Message.js"></script>
+    <link rel="shortcut icon" href="img/DALL_E_2023-05-11_11.42.29_-_je_veux_que_tu_remplace_le_text_par__ConnectChat_-removebg-preview.png">
+    <link rel="stylesheet" href="css/Message.css">
+    <script src="js/Socket.js"></script>
+    <script src="js/Message.js"></script>
     <title>Message | ConnectChat</title>
 </head>
 <body>
     <section id="main">
         <div id="nav">
             <div id="logo">
-                <img src="DALL_E_2023-05-11_11.42.29_-_je_veux_que_tu_remplace_le_text_par__ConnectChat_-removebg-preview.png" alt="logo ConnectChat">
+                <img src="img/DALL_E_2023-05-11_11.42.29_-_je_veux_que_tu_remplace_le_text_par__ConnectChat_-removebg-preview.png" alt="logo ConnectChat">
             </div>
             <div id="lien">
                 <div id="message" class="nav-button" style="margin-top: 0;">
@@ -112,7 +113,7 @@
             if (params.keyCode == 13) {
                 const text = input.value;
                 input.value = "";
-                console.log(text);
+                sendMessage(text);
             }
         });
     </script>
