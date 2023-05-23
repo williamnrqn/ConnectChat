@@ -17,8 +17,7 @@ class WebSocketClass implements MessageComponentInterface
 
     public function onOpen(ConnectionInterface $conn)
     {
-        $session = new Session();
-        $conn->Session = $session;
+        $conn->Session = new Session();
         $this->clients->attach($conn);
     }
 

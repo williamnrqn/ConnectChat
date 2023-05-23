@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="img/DALL_E_2023-05-11_11.42.29_-_je_veux_que_tu_remplace_le_text_par__ConnectChat_-removebg-preview.png">
+    <title>Connection | ConnectChat</title>
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+    <section id="connection" class="test transition-appear">
+            <div id="T1" class="title" style="display: flex;">
+                <p>Connection</p>
+                <div></div>
+            </div>
+            <div id="T2" class="title" style="display: none;">
+                <p>Inscription</p>
+                <div></div>
+            </div>
+            <div class id="form">
+                <form action="" method="post">
+                    <div>
+                        <label for="email">E-Mail</label>
+                        <input type="email" name="email" class="input" id="email">
+                    </div>
+                    <div>
+                        <label for="password">Mot de passe</label>
+                        <input type="password" name="password" class="input" id="password">
+                    </div>
+                    <div>
+                        <input type="submit" value="Se connecter" id="send">
+                    </div>
+                </form>
+            </div>
+            <div id="lien-ex" style="display: flex;">
+                <div></div>
+                <p><button id="create-account-button">Créer un compte</button></p>
+            </div>
+    </section>
+</body>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var createAccountButton = document.getElementById("lien-ex");
+    var backToLoginButton = document.getElementById("lien-ex-create");
+    var loginSection = document.getElementById("connection");
+    var signupSection = document.getElementById("inscription");
+    var title1 = document.getElementById("T1");
+    var title2 = document.getElementById("T2");
+    var formConnection = document.getElementById("form");
+    var formConnection1 = document.getElementById("form1");
+
+    createAccountButton.addEventListener("click", function() {
+        loginSection.id = "inscription";
+        createAccountButton.style.display = "none";
+        backToLoginButton.style.display = "flex";
+        title2.style.display = "flex";
+        title1.style.display = "none";
+        formConnection.className = "test";
+        formConnection1.className = "";
+        formConnection1.style.display = "block";
+        formConnection.style.display = "";
+    });
+    
+    backToLoginButton.addEventListener("click", function() {
+        formConnection.className = "";
+        formConnection1.className = "test";
+        formConnection1.style.display = "";
+        formConnection.style.display = "block";
+        title1.style.display = "flex";
+        title2.style.display = "none";
+        loginSection.id = "connection";
+        createAccountButton.style.display = "flex";
+        backToLoginButton.style.display = "none";
+    });
+}); 
+</script>
+</html>
