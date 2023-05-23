@@ -3,38 +3,60 @@ namespace mySocket;
 
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class WebSocketClass implements MessageComponentInterface
 {
-    public function onOpen(ConnectionInterface $conn)
-    {
-        // Logique lorsqu'une connexion est établie
-        printf("connection du socket\n");
-        $message = array(
-            "message" => "test"
-        );
-        if (json_encode($message) != false);
-        $conn->send(json_encode($message));
+    protected $clients;
+
+    public function __construct() {
+        $this->clients = new \SplObjectStorage();
     }
 
-    public function onClose(ConnectionInterface $conn)
+    public function onOpen(ConnectionInterface $conn)
     {
-        // Logique lorsqu'une connexion est fermée
+        $session = new Session();
+        $conn->Session = $session;
+        $this->clients->attach($conn);
     }
+
+    public function onClose(ConnectionInterface $conn) {}
 
     public function onMessage(ConnectionInterface $from, $msg)
     {
-        // Logique lorsqu'un message est reçu
         $data = json_decode($msg, true);
         if (json_last_error() === JSON_ERROR_NONE) {
-            echo $data["message"];
+            $this->checkTypeInput($from, $data);
         } else {
             echo "Erreur JSON : " . json_last_error_msg();
         }
     }
 
-    public function onError(ConnectionInterface $conn, \Exception $e)
-    {
-        // Logique en cas d'erreur
+    public function onError(ConnectionInterface $conn, \Exception $e) {}
+
+    private function checkTypeInput(ConnectionInterface $from, $data) {
+        if (isset($data["infoUser"])) $this->setInfoUser($from, $data["infoUser"]);
+        if (isset($data["message"])) $this->sendMessage($from, $data["message"]);
+    }
+
+    private function sendMessage(ConnectionInterface $from, $data) {
+        if (isset($data['to']) && isset($data['msg'])) {
+            $message = $data['msg'];
+            $recipientId = $data['to'];
+    
+            foreach ($this->clients as $client) {
+                if ($client->Session->get("id") == $recipientId) {
+                    $client->send(json_encode(["message" => ["msg" => $message]]));
+                    break;
+                }
+            }
+        }
+    }
+
+    private function setInfoUser(ConnectionInterface $from, $data) {
+        if (isset($data['id'])) {
+            $from->Session->set("id", $data["id"]);
+            $from->send(json_encode(['connection' => ['etat' => 'ok']]));
+        }
     }
 }
