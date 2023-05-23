@@ -159,6 +159,22 @@ div#core div#right {
     width: calc(100% - 400px);
 }
 
+li#message-first {
+    margin-bottom: 100px;
+    animation: to-up 0.3s;
+}
+
+@keyframes to-up {
+    0% {
+        margin-top: calc(100px - -20px);
+        margin-bottom: -40px;
+    }
+    100% {
+        margin-bottom: 100px;
+        margin-top: 10px;
+    }
+}
+
 div#core div#right div#message {
     display: flex;
     flex-direction: column-reverse;
@@ -214,10 +230,6 @@ div#core div#right div#conversation::-webkit-scrollbar {
     border-radius: 18px;
     max-width: 500px;
     word-break: break-word;
-}
-
-.firstM {
-    margin-bottom: 100px;
 }
 
 div#core div#right div#conversation ul {

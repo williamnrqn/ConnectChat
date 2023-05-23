@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="img/DALL_E_2023-05-11_11.42.29_-_je_veux_que_tu_remplace_le_text_par__ConnectChat_-removebg-preview.png">
     <link rel="stylesheet" href="css/Message.css">
-    <script src="js/Socket.js"></script>
-    <script src="js/Message.js"></script>
+    <script src="js/back/Socket.js"></script>
+    <script src="js/front/Message.js"></script>
     <title>Message | ConnectChat</title>
 </head>
 <body>
@@ -67,37 +67,12 @@
                 <div id="message">
                     <div id="degrad"></div>
                     <div id="conversation">
-                        <ul id="message-list">
-                            <li id="message" class="to firstM">oui je suis trop content</li>
-                            <li id="message" class="from">ohhh parfait alors</li>
-                            <li id="message" class="to">oui elle est trop bien</li>
-                            <li id="message" class="from">ohh c'est tres sympa, et t'ai bien ta nouvelle equipe</li>
-                            <li id="message" class="to">bah j'ai un nouveau boulot en Web disinger</li>
-                            <li id="message" class="from">pas grande chose, c'est assez tranquille en se moment et toi</li>
-                            <li id="message" class="to">ça va très bien, et le boulot quoi de neuf ?</li>
-                            <li id="message" class="from">ça va bien et toi ?</li>
-                            <li id="message" class="to">comment tu va?</li>
-                            <li id="message" class="from">coucou</li>
-                            <li id="message" class="to">comment tu va?</li>
-                            <li id="message" class="from">coucou</li>
-                            <li id="message" class="to">comment tu va?</li>
-                            <li id="message" class="from">coucou</li>
-                            <li id="message" class="to">comment tu va?</li>
-                            <li id="message" class="from">coucou</li>
-                            <li id="message" class="to">comment tu va?</li>
-                            <li id="message" class="from">coucou</li>
-                            <li id="message" class="to">comment tu va?</li>
-                            <li id="message" class="from">coucou</li>
-                            <li id="message" class="to">comment tu va?</li>
-                            <li id="message" class="from">coucou</li>
-                            <li id="message" class="to">comment tu va?</li>
-                            <li id="message" class="from">coucou</li>
-                        </ul>
+                        <ul id="message-list"></ul>
                     </div>
                 </div>
                 <div id="input">
                     <div id="input-message">
-                        <input type="text" name="" id="input-text-message">
+                        <input type="text" id="input-text-message">
                     </div>
                     <div id="button-send">
                     </div>
@@ -106,16 +81,6 @@
         </div>
         <div id="info"></div>
     </section>
-    <script>
-        const input = document.getElementById("input-text-message");
-
-        input.addEventListener("keypress", function (params) {
-            if (params.keyCode == 13) {
-                const text = input.value;
-                input.value = "";
-                sendMessage(text);
-            }
-        });
-    </script>
+    <script src="js/back/Message.js"></script>
 </body>
 </html>
