@@ -1,4 +1,5 @@
 <?php
+
 namespace mySocket;
 
 use Ratchet\MessageComponentInterface;
@@ -8,9 +9,10 @@ use Symfony\Component\HttpFoundation\Session\Session;
 class WebSocketClass implements MessageComponentInterface
 {
     protected $clients;
-
-    public function __construct() {
+    private $db;
+    public function __construct($db) {
         $this->clients = new \SplObjectStorage();
+        $this->db = $db;
     }
 
     public function onOpen(ConnectionInterface $conn)
