@@ -45,7 +45,7 @@ section#inscription {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    transition: all 0.3s 0.3s;
+    transition: all 0.3s;
 }
 
 section.test {
@@ -87,7 +87,7 @@ div.title div {
     width: 105%;
 }
 
-div#form form {
+form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -96,14 +96,34 @@ div#form form {
 div#form form div {
     display: flex;
     flex-direction: column;
-    transition: all 0.3s;
 }
 
-div#form form div label {
+div#form2 > form > div#form {
+    display: flex;
+    flex-direction: row;
+}
+form > div#form > div {
+    margin: 0 10px;
+}
+
+form > div#form > div > div {
+    margin: 5px 0;
+}
+
+form > div#form div {
+    display: flex;
+    flex-direction: column;
+}
+
+form div#button {
+    margin-top: 50px;
+}
+
+form div label {
     font-size: 20px;
 }
 
-div#form form div input.input {
+form div input.input {
     width: 254px;
     border: 2px solid black;
     border-radius: 10px;
@@ -122,10 +142,9 @@ div#form form div input#email {
 div#form form div input#password {
     margin-bottom: 50px;
     margin-top: 5px;
-
 }
 
-div#form form div input#send {
+form div input#send {
     width: 270px;
     margin: 0;
     padding: 0;
@@ -139,28 +158,24 @@ div#form form div input#send {
     transition: all 0.3s;
 }
 
-div#form form div input#send:hover {
+form div input#send:hover {
     background-color: #424141;
     transition: all 0.3s;
     cursor: pointer;
 }
 
-div#form1 {
-    transition: all 0.3s 0.6s;
-}
-
-div#lien-ex {
+div#lien-ex1, div#lien-ex2 {
     flex-direction: column;
     align-items: center;
 }
 
-div#lien-ex div {
+div#lien-ex1 div, div#lien-ex2 div {
     width: 270px;
     height: 2px;
     background-color: white;
 }
 
-div#lien-ex p {
+div#lien-ex1 p, div#lien-ex2 p {
     margin: 10px 0;
 }
 
