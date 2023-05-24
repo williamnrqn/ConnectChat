@@ -2,6 +2,8 @@ let socket = new WebSocket('ws://ConnectChat:8080');
 
 socket.onopen = function(event) {
     socket.send(JSON.stringify({infoUser: {id: "1234"}}));
+    console.log("connection...");
+    console.log(JSON.stringify({infoUser: {id: "1234"}}));
 };
 
 socket.onmessage = function(event) {
