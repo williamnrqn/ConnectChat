@@ -2,6 +2,7 @@
 
 require 'vendor/autoload.php';
 require 'SocketClass.php';
+require 'DataBase.php';
 
 use Ratchet\Server\IoServer;
 use Ratchet\Http\HttpServer;
@@ -13,13 +14,7 @@ define('BD_NAME', 'connectchat');
 define('USER', 'root');
 define('PASS', '');
 
-try {
-    $db = new PDO("mysql:host=" . HOST . ";dbname=" . BD_NAME, USER, PASS);
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    echo $e;
-    exit (84);
-}
+$db = new DataBase(HOST, BD_NAME, USER, PASS);
 
 $server = IoServer::factory(new HttpServer(new WsServer(new WebSocketClass($db))), 8080);
 

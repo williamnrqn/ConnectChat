@@ -1,14 +1,16 @@
 let socket = new WebSocket('ws://ConnectChat:8080');
 
 socket.onopen = function(event) {
-    socket.send(JSON.stringify({infoUser: {id: "1234"}}));
+    var id = document.getElementById('id').textContent;
+    socket.send(JSON.stringify({infoUser: {id: id}}));
     console.log("connection...");
-    console.log(JSON.stringify({infoUser: {id: "1234"}}));
+    console.log(JSON.stringify({infoUser: {id: id}}));
 };
 
 socket.onmessage = function(event) {
     let message = event.data;
     let data = JSON.parse(message);
+    console.log(message);
 
     if (data) {
         checkTypeInput(data);

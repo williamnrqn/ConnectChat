@@ -2,8 +2,6 @@
 
 require 'DataBase.php';
 
-use DataBase;
-
 define('HOST', 'localhost');
 define('BD_NAME', 'connectchat');
 define('USER', 'root');
@@ -16,7 +14,11 @@ if (isset($_POST['submit'])) {
         
         $hpassword = password_hash($password, PASSWORD_BCRYPT, ['cost' => 12]);
 
-        if ($db->addNewClient($_POST['firstname'], $_POST['lastname'], $hpassword, $_POST['email'])) {
+        $result;
+        if ($db->addNewClient($_POST['firstname'], $_POST['lastname'], $hpassword, $_POST['email']))
+            $result = $db->isClient($_POST['email'], $password);
+        if ($result) {
+            $_SESSION['id'] = $result['ID_client'];
             $_SESSION['firstname'] = $_POST['firstname'];
             $_SESSION['lastname'] = $_POST['lastname'];
             $_SESSION['email'] = $_POST['email'];

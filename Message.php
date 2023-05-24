@@ -1,8 +1,9 @@
 <?php session_start();
-    if (empty($_SESSION['email']) || empty($_SESSION['firstname']) || empty($_SESSION['lastname'])) {
-        header("Location: /");
-        exit;
-    }
+if (empty($_SESSION['id']) || empty($_SESSION['email']) || empty($_SESSION['firstname']) || empty($_SESSION['lastname'])) {
+    session_destroy();
+    header("Location: /");
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,6 +18,7 @@
     <title>Message | ConnectChat</title>
 </head>
 <body>
+    <div id=id style="display:none"><?= $_SESSION['id']?></div>
     <section id="main">
         <div id="nav">
             <div id="logo">

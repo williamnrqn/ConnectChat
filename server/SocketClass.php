@@ -5,13 +5,14 @@ namespace mySocket;
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Exception;
 
 class WebSocketClass implements MessageComponentInterface
 {
     protected $clients;
-    private $db;
-    public function __construct($db) {
-        $this->clients = new \SplObjectStorage();
+    private \DataBase $db;
+    public function __construct(\DataBase $db) {
+        $this->clients = array();
         $this->db = $db;
     }
 
@@ -19,12 +20,17 @@ class WebSocketClass implements MessageComponentInterface
     {
         $session = new Session();
         $conn->Session = $session;
+        $conn->Session->start();
         $conn->Session->set("id", "");
-        $this->clients->attach($conn);
+        $conn->Session->set("email", "");
+        $conn->Session->set("lastname", "");
+        $conn->Session->set("firstname", "");
         echo "new client\n";
     }
 
     public function onClose(ConnectionInterface $conn) {
+        $sessionId = $conn->Session->getId();
+        unset($this->clients[$sessionId]);
         echo "client disconnect\n";
     }
 
@@ -39,7 +45,7 @@ class WebSocketClass implements MessageComponentInterface
         }
     }
 
-    public function onError(ConnectionInterface $conn, \Exception $e) {}
+    public function onError(ConnectionInterface $conn, Exception $e) {}
 
     private function checkTypeInput(ConnectionInterface $from, $data) {
         if (isset($data["infoUser"])) $this->setInfoUser($from, $data["infoUser"]);
@@ -49,16 +55,21 @@ class WebSocketClass implements MessageComponentInterface
 
     private function sendMessage(ConnectionInterface $from, $data) {
         echo "sendMessage\n";
-        if (isset($data['to']) && isset($data['msg'])) {
+        if (isset($data['from']) && isset($data['to']) && isset($data['msg'])) {
             $message = $data['msg'];
-            $recipientId = $data['to'];
-            
-            echo "whitch client to send message\n";
-            foreach ($this->clients as $client) {
-                if ($client->Session->get("id") == $recipientId) {
-                    $client->send(json_encode(["message" => ["msg" => $message]]));
-                    break;
-                }
+            $toId = $data['to'];
+            $fromId = $data['from'];
+
+            // Capturer la session du client émetteur
+            echo json_encode($this->clients);
+            echo "message from id = {$fromId} to {$toId}\n";
+
+            // Récupère le client destinataire en utilisant l'ID de session comme clé
+            $recipientClient = $this->clients[$toId] ?? null;
+
+            if ($this->db->addNewMessage($toId, $fromId, $message)) {
+                if ($recipientClient)
+                    $recipientClient->send(json_encode(["message" => ["msg" => $message]]));
             }
         }
     }
@@ -68,10 +79,12 @@ class WebSocketClass implements MessageComponentInterface
         if (isset($data['id'])) {
             try {
                 $from->Session->set("id", $data['id']);
-            } catch(\Exception $e) {
+                $from->Session->start();
+                $this->clients[$data['id']] = $from;
+            } catch(Exception $e) {
                 echo "error to save id\n";
             }
-                $from->send(json_encode(['connection' => ['etat' => 'ok']]));
+            $from->send(json_encode(['connection' => ['etat' => 'ok']]));
             echo "client enregistre\n";
         }
     }

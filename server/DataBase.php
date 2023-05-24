@@ -25,11 +25,11 @@ class DataBase
                 'email'     => $email,
                 'password'  => $password
             ]);
+            return true;
         } catch (PDOException $e) {
             echo $e;
             return false;
         }
-        return true;
     }
 
     public function isClient(String $email, String $password)
@@ -45,6 +45,7 @@ class DataBase
         if ($result == true) {
             if (password_verify((String)$password, (String)$result['Password'])) {
                 return [
+                    'ID_client' => $result['ID_client'],
                     'firstname' => $result['firstName'],
                     'lastname' => $result['lastName'],
                     'email' => $result['Email']
@@ -53,6 +54,21 @@ class DataBase
                 return false;
             }
         } else {
+            return false;
+        }
+    }
+
+    public function addNewMessage($idTo, $idFrom, $msg)
+    {
+        try {
+            $q = $this->db->prepare("INSERT INTO `message`(`ID_from`, `ID_to`, `message`) VALUES (:ID_from, :ID_to, :msg)");
+            $q->execute([
+                'ID_from' => $idFrom,
+                'ID_to' => $idTo,
+                'msg' => $msg
+            ]);
+            return true;
+        } catch (PDOException $e) {
             return false;
         }
     }

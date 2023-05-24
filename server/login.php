@@ -2,8 +2,6 @@
 
 require 'DataBase.php';
 
-use DataBase;
-
 define('HOST', 'localhost');
 define('BD_NAME', 'connectchat');
 define('USER', 'root');
@@ -24,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
         header('Location: /#noClient');
         exit;
     } else {
+        $_SESSION['id'] = $result['ID_client'];
         $_SESSION['firstname'] = $result['firstname'];
         $_SESSION['lastname'] = $result['lastname'];
         $_SESSION['email'] = $result['email'];

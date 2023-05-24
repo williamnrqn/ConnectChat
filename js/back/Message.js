@@ -9,9 +9,7 @@ input.addEventListener("keypress", function (params) {
 });
 
 function sendMessage(data) {
-    // let infoMessageTo = document.getElementById();
-    socket.send(JSON.stringify({message: {to:"1234", msg: data}}));
-    console.log({message: {to:"1234", msg: data}});
+    socket.send(JSON.stringify({message: {from: document.getElementById('id').textContent, to: document.getElementById('id').textContent, msg: data}}));
     let li = document.getElementById("message-first");
 
     let NewMessage = document.createElement('li');
