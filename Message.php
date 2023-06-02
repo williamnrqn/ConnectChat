@@ -15,6 +15,7 @@ if (empty($_SESSION['id']) || empty($_SESSION['email']) || empty($_SESSION['firs
     <link rel="stylesheet" href="css/Message.css">
     <script src="js/back/Socket.js"></script>
     <script src="js/front/Message.js"></script>
+    <script src="js/front/friend.js"></script>
     <title>Message | ConnectChat</title>
 </head>
 <body>
@@ -26,30 +27,31 @@ if (empty($_SESSION['id']) || empty($_SESSION['email']) || empty($_SESSION['firs
             </div>
             <div id="lien">
                 <div id="message" class="nav-button" style="margin-top: 0;">
-                    <button id="to-message" class="select"><img src="" alt=""></button>
+                    <button id="to-message" class="select-img"><img src="img/message.png" alt=""></button>
                 </div>
                 <div id="friend" class="nav-button">
-                    <button id="to-friend"class="no-select"><img src="" alt=""></button>
+                    <button id="to-friend"class="no-select-img"><img src="img/ajouter-un-utilisateur.png" alt=""></button>
                 </div>
                 <div id="group" class="nav-button">
-                    <button id="to-group" class="no-select"><img src="" alt=""></button>
+                    <button id="to-group" class="no-select-img"><img src="img/groupe.png" alt=""></button>
                 </div>
                 <div id="setting" class="nav-button">
-                    <button id="to-setting" class="no-select"><img src="" alt=""></button>
+                    <button id="to-setting" class="no-select-img"><img src="img/parametres.png" alt=""></button>
                 </div>
                 <div id="button-change-theme" class="nav-button" style="margin-bottom: 0;">
-                    <button id="theme-toggle"><img src="" alt=""></button>
+                    <button id="theme-toggle" class="no-select-img"><img src="img/jour-et-nuit.png" alt=""></button>
                 </div>
             </div>
             <div id="img-profil-client">
                 <div id="photo"></div>
             </div>
         </div>
-        <div id="core">
+        <div id="core-message">
             <div id="left">
                 <div id="cherche"></div>
                 <div id="clients">
                     <ul id="client-list">
+                        <!-- <li id="client" class="n"></li>
                         <li id="client" class="n"></li>
                         <li id="client" class="n"></li>
                         <li id="client" class="n"></li>
@@ -66,8 +68,7 @@ if (empty($_SESSION['id']) || empty($_SESSION['email']) || empty($_SESSION['firs
                         <li id="client" class="n"></li>
                         <li id="client" class="n"></li>
                         <li id="client" class="n"></li>
-                        <li id="client" class="n"></li>
-                        <li id="client" class="n"></li>
+                        <li id="client" class="n"></li> -->
                     </ul>
                 </div>
             </div>
@@ -87,6 +88,52 @@ if (empty($_SESSION['id']) || empty($_SESSION['email']) || empty($_SESSION['firs
                 </div>
             </div>
         </div>
+        <div id="core-friend" style="display :none;">
+            <div id="up">
+                <div id="friend">
+                    <button id="list-friend" class="select">Amis</button>
+                </div>
+                <div id="online">
+                    <button id="list-online" class="no-select">En ligne</button>
+                </div>
+                <div id="attent">
+                    <button id="list-attent" class="no-select">En attente</button>
+                </div>
+                <div id="newFriend">
+                    <button id="list-newFriend" class="no-select">Ajouter</button>
+                </div>
+            </div>
+            <div id="down-friend">
+                <div id="search">
+                    <input type="text" id="search-friend" class="search" placeholder="Rechercher un ami">
+                </div>
+                <div id="client">
+                    <ul id="client-list-friend"></ul>
+                </div>
+            </div>
+            <div id="down-online" style="display: none">
+                <div id="search">
+                    <input type="text" id="search-online" class="search" placeholder="Rechercher un ami">
+                </div>
+                <div id="client">
+                    <ul id="client-list-online"></ul>
+                </div>
+            </div>
+            <div id="down-attent" style="display: none"></div>
+            <div id="down-newFriend" style="display: none">
+                <div id="search">
+                    <input type="text" id="search-newFriend" placeholder="Tu peux rechercher des amis grâce a leur E-mail">
+                </div>
+                <div id="search-status">
+                    <div id="search-status-text" class></div>
+                </div>
+                <div id="client-want-to-add">
+                    <ul id="client-want-to-add-list"></ul>
+                </div>
+            </div>
+        </div>
+        <div id="core-group" style="display: none;"></div>
+        <div id="core-seting" style="display: none;"></div>
         <div id="info"></div>
     </section>
     <script src="js/back/Message.js"></script>

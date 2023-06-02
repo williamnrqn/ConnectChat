@@ -8,6 +8,7 @@
     --text-1-color: #fff;
     --text-2-color: #000;
     --button-color: #3533CD;
+    --img-n:1;
 
     /* other */
     --border-line-color: #000;
@@ -26,14 +27,33 @@ html, body {
     --text-1-color: #000;
     --text-2-color: #fff;
     --border-line-color: #fff;
+    --img-n:0;
 }
 
 .select {
     background-color: var(--button-color);
+    color: #fff;
 }
 
 .no-select {
     background-color: var(--bg-div-2-color);
+    color: var(--text-1-color);
+}
+
+.select-img {
+    background-color: var(--button-color);
+}
+
+.no-select-img {
+    background-color: var(--bg-div-1-color);
+}
+
+.select-img img {
+    filter: invert(1);
+}
+
+.no-select-img img {
+    filter: invert(var(--img-n));
 }
 
 .none {
@@ -96,12 +116,31 @@ div#nav div#img-profil-client div#photo {
 }
 
 div#nav div.nav-button {
-    margin:80px 0;
+    margin: 70px 0;
+}
+
+div#lien button {
+    border: none;
+    border-radius: 20px;
+    padding: 10px;
+    transition: all 0.3s;
+}
+
+div#lien button:hover {
+    background-color: var(--bg-div-2-color);
+    transition: all 0.3s;
+}
+
+div#lien button img {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    transition: all 0.3s;
 }
 
 /* CORE */
 
-div#core {
+div#core-message {
     display: flex;
     width: 100%;
     margin: 20px 10px 20px 10px;
@@ -110,7 +149,147 @@ div#core {
     transition: background-color 0.3s;
 }
 
-div#core div#left {
+div#core-friend {
+    display: flex;
+    width: 100%;
+    margin: 20px 10px 20px 10px;
+    background-color: var(--bg-div-1-color);
+    border-radius: 60px;
+    transition: background-color 0.3s;
+    flex-direction: column;
+}
+
+div#core-friend > div#up {
+    width: 100%;
+    background: var(--bg-div-2-color);
+    height: 120px;
+    border-radius: 60px 60px 0 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: safe;
+}
+
+div#core-friend > div#up div#friend button {
+    margin-left: 40px;
+}
+
+div#core-friend > div#up button {
+    font-size: 20px;
+    padding: 5px 10px;
+    border-radius: 20px;
+    border: none;
+    font-family: 'IBM Plex Mono', monospace;
+    margin: 0 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+div#core-friend > div#up button:hover {
+    background-color: var(--bg-div-1-color);
+    color: var(--text-1-color);
+    transition: all 0.3s;
+}
+
+div#core-friend > div#down {
+    width: 100%;
+    height: calc(100% - 120px);
+    border-radius: 0 0 60px 60px;
+}
+
+div#search {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100px;
+    border-radius: 60px 0 0 0px;
+    background-color: var(--bg-div-1-color);
+    transition: background-color 0.3s;
+}
+
+div#search input.search {
+    width: calc(100% - 200px);
+    background-color: var(--bg-div-2-color);
+    margin: 0;
+    padding: 0;
+    border: solid 2px var(--text-2-color);
+    height: 40px;
+    border-radius: 10px;
+    font-size: 15px;
+    padding: 0 10px;
+    color: var(--text-1-color);
+    font-family: 'IBM PLEX MONO';
+}
+
+div#down-newFriend  div#search {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 150px;
+    border-radius: 60px 0 0 0px;
+    background-color: var(--bg-div-1-color);
+    transition: background-color 0.3s;
+}
+
+div#down-newFriend  div#search input#search-newFriend {
+    width: calc(100% - 200px);
+    background-color: var(--bg-div-2-color);
+    margin: 0;
+    padding: 0;
+    border: solid 2px var(--text-2-color);
+    height: 50px;
+    border-radius: 10px;
+    font-size: 20px;
+    padding: 0 10px;
+    color: var(--text-1-color);
+    font-family: 'IBM PLEX MONO';
+}
+
+div#search-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: -20px;
+    height: 30px;
+}
+
+.errer {
+    color: #ff0000;
+}
+
+.susses {
+    color: #00ff00;
+}
+
+div#search-status-text {
+    width: calc(100% - 200px);
+    padding: 0 10px;
+    font-family: 'IBM PLEX MONO';
+    font-size: 20px;
+}
+
+div#core-group {
+    display: flex;
+    width: 100%;
+    margin: 20px 10px 20px 10px;
+    background-color: var(--bg-div-1-color);
+    border-radius: 60px;
+    transition: background-color 0.3s;
+}
+
+div#core-seting {
+    display: flex;
+    width: 100%;
+    margin: 20px 10px 20px 10px;
+    background-color: var(--bg-div-1-color);
+    border-radius: 60px;
+    transition: background-color 0.3s;
+}
+
+div#core-message div#left {
     width: 400px;
     height: 100%;
     background-color: var(--bg-div-1-color);
@@ -118,7 +297,7 @@ div#core div#left {
     transition: background-color 0.3s;
 }
 
-div#core div#cherche {
+div#core-message div#cherche {
     width: 100%;
     height: 90px;
     border-radius: 60px 0 0 0px;
@@ -126,7 +305,7 @@ div#core div#cherche {
     transition: background-color 0.3s;
 }
 
-div#core div#clients {
+div#core-message div#clients {
     width: 100%;
     height: calc(100% - 90px);
     border-radius: 60px 60px 0 60px;
@@ -135,25 +314,25 @@ div#core div#clients {
     transition: background-color 0.3s;
 }
 
-div#core div#clients::-webkit-scrollbar {
+div#core-message div#clients::-webkit-scrollbar {
     width: 0;
     background-color: #000;
 }
 
-div#core div#clients ul#client-list {
+div#core-message div#clients ul#client-list {
     list-style-type: none;
     padding: 0;
     margin: 0;
 }
 
-div#core div#clients ul#client-list li#client {
+div#core-message div#clients ul#client-list li#client {
     width: 100%;
     height: 90px;
     border-top: solid var(--bg-div-1-color) 2px;
     border-bottom: solid var(--bg-div-1-color) 2px;
 }
 
-div#core div#right {
+div#core-message div#right {
     display: flex;
     flex-direction: column;
     width: calc(100% - 400px);
@@ -175,7 +354,7 @@ li#message-first {
     }
 }
 
-div#core div#right div#message {
+div#core-message div#right div#message {
     display: flex;
     flex-direction: column-reverse;
     height: calc(100% - 120px);
@@ -183,7 +362,7 @@ div#core div#right div#message {
     align-items: stretch;
 }
 
-div#core div#right div#degrad {
+div#core-message div#right div#degrad {
     position: sticky;
     background: linear-gradient(to top, var(--bg-div-2-color), #ffffff00);
     width: 100%;
@@ -191,7 +370,7 @@ div#core div#right div#degrad {
     z-index: 1;
 }
 
-div#core div#right div#conversation {
+div#core-message div#right div#conversation {
     height: calc(100% - 160px);
     width: 974.64px;
     overflow-y: scroll;
@@ -200,7 +379,7 @@ div#core div#right div#conversation {
     position: fixed; /* Ajoutez cette ligne */
 }
 
-div#core div#right div#conversation::-webkit-scrollbar {
+div#core-message div#right div#conversation::-webkit-scrollbar {
     display: none;
     opacity: 0;
 }
@@ -232,7 +411,7 @@ div#core div#right div#conversation::-webkit-scrollbar {
     word-break: break-word;
 }
 
-div#core div#right div#conversation ul {
+div#core-message div#right div#conversation ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
@@ -240,7 +419,7 @@ div#core div#right div#conversation ul {
     flex-direction: column-reverse;
 }
 
-div#core div#right div#input {
+div#core-message div#right div#input {
     background-color: var(--bg-div-1-color);
     width: 100%;
     height: 120px;

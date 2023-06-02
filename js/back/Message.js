@@ -45,3 +45,24 @@ function getMessage(data) {
         }
     }
 }
+
+function getFriend() {
+    socket.send(JSON.stringify({get: "friend", id: document.getElementById('id').textContent}));
+}
+
+function setFriend(data) {
+    let ul = document.getElementById("friend-list");
+
+    data.forEach(element => {
+        let li = document.createElement('li');
+        if (element.ID_friend1 == document.getElementById('id').textContent) {
+            li.textContent = element.ID_friend2;
+            li.id = "client-" + element.ID_friend2;
+        } else {
+            li.textContent = element.ID_friend1;
+            li.id = "client-" + element.ID_friend1;
+        }
+        li.className = "n";
+        ul.appendChild(li);
+    });
+}

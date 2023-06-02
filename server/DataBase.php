@@ -72,6 +72,47 @@ class DataBase
             return false;
         }
     }
+
+    public function getFriend($id)
+    {
+        try {
+            $q = $this->db->prepare("SELECT * FROM `friend` WHERE `ID_client1` = :id OR `ID_client2` = :id");
+            $q->execute([
+                'id' => $id
+            ]);
+            return $q;
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
+
+    public function getMessage($id, $idFriend)
+    {
+        try {
+            $q = $this->db->prepare("SELECT * FROM `message` WHERE (`ID_from` = :id AND `ID_to` = :idFriend) OR (`ID_from` = :idFriend AND `ID_to` = :id)");
+            $q->execute([
+                'id' => $id,
+                'idFriend' => $idFriend
+            ]);
+            $result = $q;
+            return $result;
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
+
+    public function getInfoClient($idClient)
+    {
+        try {
+            $q = $this->db->prepare("SELECT * FROM `client` WHERE `ID_client` = :idClient");
+            $q->execute([
+                'idClient' => $idClient
+            ]);
+            return $q;
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
 }
 
 

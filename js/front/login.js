@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     var createAccountButton = document.getElementById("lien-ex1");
     var connectionAccountButton = document.getElementById("lien-ex2");
-    var signupSection = document.getElementById("inscription");
     var signinSection = document.getElementById("connection");
     var title_login = document.getElementById("T1");
     var title_logup = document.getElementById("T2");

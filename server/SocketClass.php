@@ -39,6 +39,7 @@ class WebSocketClass implements MessageComponentInterface
         $data = json_decode($msg, true);
         if (json_last_error() === JSON_ERROR_NONE) {
             echo "un nouveau message\n";
+            echo $msg . "\n";
             $this->checkTypeInput($from, $data);
         } else {
             echo "Erreur JSON : " . json_last_error_msg();
@@ -50,6 +51,7 @@ class WebSocketClass implements MessageComponentInterface
     private function checkTypeInput(ConnectionInterface $from, $data) {
         if (isset($data["infoUser"])) $this->setInfoUser($from, $data["infoUser"]);
         else if (isset($data["message"])) $this->sendMessage($from, $data["message"]);
+        else if (isset($data["get"])) $this->get($from, $data);
         else echo "no function fond\n";
     }
 
@@ -86,6 +88,60 @@ class WebSocketClass implements MessageComponentInterface
             }
             $from->send(json_encode(['connection' => ['etat' => 'ok']]));
             echo "client enregistre\n";
+        }
+    }
+
+    private function get(ConnectionInterface $from, $data) {
+        if (isset($data["get"])) {
+            $get = $data["get"];
+            switch ($get) {
+                case 'friend':
+                    $this->getFriend($from, $data);
+                    break;
+                case 'message':
+                    $this->getMessage($from, $data);
+                    break;
+                default:
+                    echo "no function fond\n";
+                    break;
+            }
+        }
+    }
+
+    private function getFriend(ConnectionInterface $from, $data) {
+        echo "getFriend\n";
+        if (isset($data['id'])) {
+            $id = $data['id'];
+            $friend = $this->db->getFriend($id);
+            $result = [];
+            while ($value = $friend->fetch()) {
+                if ($value == true) {
+                    echo "fetch good";
+                } else echo "fetch not good";
+                echo $value;
+            }
+                // if ($value['ID_client1'] == $id) {
+                //         echo $this->db->getInfoClient($value['ID_client2']);
+                //         $result[] = $this->db->getInfoClient($value['ID_client2']);
+                // } else {
+                //     echo $this->db->getInfoClient($value['ID_client1']);
+                //     $result[] = $this->db->getInfoClient($value['ID_client1']);
+                // }
+
+            echo json_encode(['friend' => $result]);
+            $from->send(json_encode(['friend' => $result]));
+        }
+    }
+
+    private function getMessage(ConnectionInterface $from, $data) {
+        echo "getMessage\n";
+        if (isset($data['id']) && isset($data['idFriend'])) {
+            $id = $data['id'];
+            $idFriend = $data['idFriend'];
+            $message = $this->db->getMessage($id, $idFriend);
+            $result = [];
+
+            $from->send(json_encode(['message' => $message]));
         }
     }
 }
