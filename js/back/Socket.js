@@ -25,4 +25,5 @@ function checkTypeInput(data) {
     if (data.connection) console.log(data.connection.etat);
     if (data.message) getMessage(data.message);
     if (data.friend) setFriend(data.friend);
+    if (data.conversation) setConversation(data);
 };

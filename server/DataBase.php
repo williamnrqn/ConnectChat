@@ -2,7 +2,7 @@
 
 class DataBase
 {
-    private $db;
+    public $db;
 
     public function __construct($host, $db_name, $user, $pass)
     {
@@ -12,6 +12,36 @@ class DataBase
         } catch (PDOException $e) {
             echo $e;
             exit;
+        }
+    }
+
+    public function getIsClient($email) {
+        try {
+            $q = $this->db->prepare("SELECT * FROM `client` WHERE `Email` = :email");
+            $q->execute([
+                'email' => $email
+            ]);
+            $result = $q->fetch();
+            if ($result == true) return true;
+            else return false;
+        } catch (PDOException $e) {
+            echo $e;
+            return false;
+        }
+    }
+
+    public function addNewFriend($idClient1, $idClient2)
+    {
+        try {
+            $q = $this->db->prepare("INSERT INTO `friend`(`ID_client1`, `ID_client2`) VALUES (:idClient1, :idClient2)");
+            $q->execute([
+                'idClient1' => $idClient1,
+                'idClient2' => $idClient2
+            ]);
+            return true;
+        } catch (PDOException $e) {
+            echo $e;
+            return false;
         }
     }
 
@@ -89,7 +119,7 @@ class DataBase
     public function getMessage($id, $idFriend)
     {
         try {
-            $q = $this->db->prepare("SELECT * FROM `message` WHERE (`ID_from` = :id AND `ID_to` = :idFriend) OR (`ID_from` = :idFriend AND `ID_to` = :id)");
+            $q = $this->db->prepare("SELECT * FROM `message` WHERE (`ID_from` = :id AND `ID_to` = :idFriend) OR (`ID_from` = :idFriend AND `ID_to` = :id) ORDER BY `ID_message` DESC");
             $q->execute([
                 'id' => $id,
                 'idFriend' => $idFriend
@@ -109,6 +139,19 @@ class DataBase
                 'idClient' => $idClient
             ]);
             return $q;
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
+
+    public function getInfoClientByEmail($email)
+    {
+        try {
+            $q = $this->db->prepare("SELECT * FROM `client` WHERE `Email` = :email");
+            $q->execute([
+                'email' => $email
+            ]);
+            return $q->fetch();
         } catch (PDOException $e) {
             return false;
         }

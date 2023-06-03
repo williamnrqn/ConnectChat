@@ -31,7 +31,6 @@ document.addEventListener("DOMContentLoaded", function() {
         core_s.style.display = "none";
 
         document.title =  "Message | ConnectChat";
-        getFriend();
     });
     
     to_friend.addEventListener("click", function() {

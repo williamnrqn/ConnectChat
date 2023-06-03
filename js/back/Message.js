@@ -8,8 +8,50 @@ input.addEventListener("keypress", function (params) {
     }
 });
 
+function setConversation(data) {
+    document.getElementById('id_from').textContent = data.ID_from;
+    data = data.conversation;
+    console.log(data);
+    let ul = document.getElementById("message-list");
+    ul.innerHTML = "";
+    let i = 0;
+    data.forEach(element => {
+        let li = document.createElement('li');
+        li.textContent = element.msg;
+        li.id = "message";
+        if (element.from == document.getElementById('id').textContent) {
+            li.className = "to";
+        } else {
+            li.className = "from";
+        }
+        ul.appendChild(li);
+        if (i == 0) {
+            li.id = "message-first";
+        }
+        i++;
+    });
+}
+
+function selectClient(idfrom) {
+    let li = document.getElementById(idfrom);
+    let ul = document.getElementById("client-list");
+    let list = ul.getElementsByTagName("li");
+    for (let i = 0; i < list.length; i++) {
+        list[i].className = "n";
+    }
+    li.className = "s";
+}
+
+function openMessage(idfrom) {
+    selectClient(idfrom);
+    let id = document.getElementById('id').textContent;
+    let ul = document.getElementById("message-list");
+    ul.innerHTML = "";
+    socket.send(JSON.stringify({get: "message", id: id, idfrom: idfrom}));
+}
+
 function sendMessage(data) {
-    socket.send(JSON.stringify({message: {from: document.getElementById('id').textContent, to: document.getElementById('id').textContent, msg: data}}));
+    socket.send(JSON.stringify({message: {from: document.getElementById('id').textContent, to: document.getElementById('id_from').textContent, msg: data}}));
     let li = document.getElementById("message-first");
 
     let NewMessage = document.createElement('li');
@@ -27,7 +69,7 @@ function sendMessage(data) {
 }
 
 function getMessage(data) {
-    if (data.msg) {
+    if (data.msg && data.from == document.getElementById('id_from').textContent) {
         let NewMessage = document.createElement('li');
     
         NewMessage.textContent = data.msg;

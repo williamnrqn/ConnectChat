@@ -9,6 +9,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="dark light">
+    <meta name="robots" content="noarchive">
+    <meta name="description" content="ConnectChat est un site de messagerie instantanée qui vous permet de discuter avec vos amis et votre famille.">
     <link rel="shortcut icon" href="img/DALL_E_2023-05-11_11.42.29_-_je_veux_que_tu_remplace_le_text_par__ConnectChat_-removebg-preview.png">
     <title>Connection | ConnectChat</title>
     <link rel="stylesheet" href="css/login.css">

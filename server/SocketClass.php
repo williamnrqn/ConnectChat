@@ -52,6 +52,7 @@ class WebSocketClass implements MessageComponentInterface
         if (isset($data["infoUser"])) $this->setInfoUser($from, $data["infoUser"]);
         else if (isset($data["message"])) $this->sendMessage($from, $data["message"]);
         else if (isset($data["get"])) $this->get($from, $data);
+        else if (isset($data["search"])) $this->search($from, $data);
         else echo "no function fond\n";
     }
 
@@ -71,7 +72,7 @@ class WebSocketClass implements MessageComponentInterface
 
             if ($this->db->addNewMessage($toId, $fromId, $message)) {
                 if ($recipientClient)
-                    $recipientClient->send(json_encode(["message" => ["msg" => $message]]));
+                    $recipientClient->send(json_encode(["message" => ["msg" => $message, "from" => $fromId]]));
             }
         }
     }
@@ -88,6 +89,22 @@ class WebSocketClass implements MessageComponentInterface
             }
             $from->send(json_encode(['connection' => ['etat' => 'ok']]));
             echo "client enregistre\n";
+        }
+    }
+
+    private function search(ConnectionInterface $from, $data)
+    {
+        if ($data['search'] == 'newfriend' && isset($data['content'])) {
+            $content = $data['content'];
+            $result = $this->db->getIsClient($content['search']);
+            if ($result == true) {
+                $result = $this->db->getInfoClientByEmail($content['search']);
+                $this->db->addNewFriend($content['id'], $result['ID_client']);
+                $result = "OK";
+            } else {
+                $result = "KO";
+            }
+            $this->clients[$content['id']]->send(json_encode(['search' => ['friend' => $result]]));
         }
     }
 
@@ -135,13 +152,21 @@ class WebSocketClass implements MessageComponentInterface
 
     private function getMessage(ConnectionInterface $from, $data) {
         echo "getMessage\n";
-        if (isset($data['id']) && isset($data['idFriend'])) {
+        if (isset($data['id']) && isset($data['idfrom'])) {
             $id = $data['id'];
-            $idFriend = $data['idFriend'];
+            $idFriend = $data['idfrom'];
             $message = $this->db->getMessage($id, $idFriend);
-            $result = [];
+            if ($message == true) {
+                $result = [];
+                while ($value = $message->fetch()) {
+                    $result[] = ['msg' => $value['message'], 'from' => $value['ID_from'], 'to' => $value['ID_to']];
+                }
 
-            $from->send(json_encode(['message' => $message]));
+                echo json_encode(['conversation' => $result, 'ID_from' => $idFriend]);
+                $from->send(json_encode(['conversation' => $result, 'ID_from' => $idFriend]));
+            } else {
+                echo "no message\n";
+            }
         }
     }
 }

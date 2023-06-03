@@ -40,12 +40,21 @@ html, body {
     color: var(--text-1-color);
 }
 
+.no-select:hover {
+    background-color: var(--bg-div-1-color);
+    color: var(--text-1-color);
+}
+
 .select-img {
     background-color: var(--button-color);
 }
 
 .no-select-img {
     background-color: var(--bg-div-1-color);
+}
+
+.no-select-img:hover {
+    background-color: var(--bg-div-2-color);
 }
 
 .select-img img {
@@ -108,8 +117,8 @@ div#nav div#img-profil-client {
     align-items: center;
 }
 
-div#nav div#img-profil-client div#photo {
-    background-color: #fff;
+div#photo {
+    background-color: var(--text-1-color);
     width: 70px;
     height: 70px;
     border-radius: 50px;
@@ -123,11 +132,6 @@ div#lien button {
     border: none;
     border-radius: 20px;
     padding: 10px;
-    transition: all 0.3s;
-}
-
-div#lien button:hover {
-    background-color: var(--bg-div-2-color);
     transition: all 0.3s;
 }
 
@@ -182,12 +186,6 @@ div#core-friend > div#up button {
     font-family: 'IBM Plex Mono', monospace;
     margin: 0 20px;
     cursor: pointer;
-    transition: all 0.3s;
-}
-
-div#core-friend > div#up button:hover {
-    background-color: var(--bg-div-1-color);
-    color: var(--text-1-color);
     transition: all 0.3s;
 }
 
@@ -287,6 +285,93 @@ div#core-seting {
     background-color: var(--bg-div-1-color);
     border-radius: 60px;
     transition: background-color 0.3s;
+    overflow-y: scroll;
+}
+
+div#core-seting::-webkit-scrollbar {
+    width: 0;
+    background-color: #000;
+}
+
+div#core-seting div#page {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+div#page div#title {
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--text-1-color);
+    font-size: 30px;
+    margin-top: 20px;
+}
+div#page div#title-1 {
+    color: var(--text-1-color);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 25px;
+    margin-top: 20px;
+}
+
+div#page > div#content {
+    width: calc(100% - 500px);
+}
+
+div#page div#content div#profil #info {
+    width: 430px;
+    margin: 10px 20px 20px 10px;
+    background-color: var(--bg-div-1-color);
+    transition: background-color 0.3s;
+}
+
+div#content input.password {
+    width: calc(100% - 24px - 300px);
+    background-color: var(--bg-div-2-color);
+    margin: 0;
+    padding: 0;
+    border: solid 2px var(--text-2-color);
+    height: 35px;
+    border-radius: 10px;
+    font-size: 20px;
+    padding: 0 10px;
+    margin: 10px 20px;
+    color: var(--text-1-color);
+    font-family: 'IBM PLEX MONO';
+}
+
+div#content button#change-password-button {
+    width: calc(100% - 300px);
+    background-color: var(--button-color);
+    margin: 0;
+    padding: 0;
+    border: 0;
+    height: 39px;
+    border-radius: 10px;
+    font-size: 20px;
+    padding: 0 30px;
+    margin: 10px 20px;
+    color: var(--text-1-color);
+    font-family: 'IBM PLEX MONO';
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+div#change, div#change-password, div#content, div#content > div {
+    width: 100%;
+}
+
+div#content button#change-password-button:hover {
+    background-color: var(--bg-div-2-color);
+    transition: all 0.3s;
+}
+
+div#info #name, div#info #email {
+    color: var(--text-1-color);
+    display: flex;
+    flex-direction: row;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 20px;
 }
 
 div#core-message div#left {
@@ -308,7 +393,7 @@ div#core-message div#cherche {
 div#core-message div#clients {
     width: 100%;
     height: calc(100% - 90px);
-    border-radius: 60px 60px 0 60px;
+    border-radius: 0 60px 0 60px;
     overflow-y: scroll;
     background-color: var(--bg-div-2-color);
     transition: background-color 0.3s;
@@ -319,17 +404,43 @@ div#core-message div#clients::-webkit-scrollbar {
     background-color: #000;
 }
 
+div#core-message div#clients li {
+    display: flex;
+    align-items: center;
+}
+
+div#core-message div#clients li div#photo {
+    margin-left: 20px;
+}
+
+div#core-message div#clients li div#name {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 20px;
+    color: var(--text-1-color);
+    margin-left: 20px;
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
 div#core-message div#clients ul#client-list {
     list-style-type: none;
     padding: 0;
     margin: 0;
 }
 
-div#core-message div#clients ul#client-list li#client {
+div#core-message div#clients ul#client-list > li {
     width: 100%;
     height: 90px;
-    border-top: solid var(--bg-div-1-color) 2px;
     border-bottom: solid var(--bg-div-1-color) 2px;
+    transition: all 0.3s;
+}
+
+.s {
+    background-color: var(--bg-div-1-color);
 }
 
 div#core-message div#right {
