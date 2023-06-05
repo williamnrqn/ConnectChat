@@ -24,8 +24,7 @@ $db = $db->db;
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv=Content-Type content="text/html; charset=utf-8">
     <meta property="og:William Niarquin" content="ConnectChat">
-    <meta name="viewport" content="width=1920, initial-scale=1.0">
-    <meta name="theme-color" content="dark light">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noarchive">
     <meta name="description" content="ConnectChat est un site de messagerie instantanée qui vous permet de discuter avec vos amis et votre famille.">
     <link rel="shortcut icon" href="img/DALL_E_2023-05-11_11.42.29_-_je_veux_que_tu_remplace_le_text_par__ConnectChat_-removebg-preview.png">
@@ -125,7 +124,7 @@ $db = $db->db;
                 <div id="friend">
                     <button id="list-friend" class="select">Amis</button>
                 </div>
-                <div id="online">
+                <div id="online" style="display: none;">
                     <button id="list-online" class="no-select">En ligne</button>
                 </div>
                 <div id="attent">
@@ -153,7 +152,7 @@ $db = $db->db;
                                 ]);
                                 $result2 = $q2->fetch();
                                 ?>
-                                <li id="client" class="n" onclick="openMessage(<?= $result2['ID_client']?>)">
+                                <li id="<?= $result2['ID_client']?>" onclick="openMessage(<?= $result2['ID_client']?>)">
                                     <div id="photo"></div>
                                     <div id="name"><?= ucfirst($result2['firstName']) . " " . ucfirst($result2['lastName'])?></div>
                                 </li>
@@ -165,7 +164,7 @@ $db = $db->db;
                                 ]);
                                 $result2 = $q2->fetch();
                                 ?>
-                                <li id="client" class="n" onclick="openMessage(<?= $result2['ID_client']?>)">
+                                <li id="<?= $result2['ID_client']?>" onclick="openMessage(<?= $result2['ID_client']?>)">
                                     <div id="photo"></div>
                                     <div id="name"><?= ucfirst($result2['firstName']) . " " . ucfirst($result2['lastName'])?></div>
                                 </li>
@@ -231,6 +230,14 @@ $db = $db->db;
                                 </div>
                                 <div id="button">
                                     <button id="change-photo-button">Changer</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="logout-account">
+                            <div id="title-1">Déconnexion</div>
+                            <div id="content">
+                                <div id="button">
+                                    <button id="logout-account-button" onclick='window.location.href = "/logout"'>Déconnexion</button>
                                 </div>
                             </div>
                         </div>
